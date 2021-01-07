@@ -1,14 +1,14 @@
 {
-      "name": "Romeo",
+      "name": "THOR BOT",
       "description": "A Superb Telegram Group Manager Bot",
-      "logo": "https://telegra.ph/file/de271f11ee1047870050a.jpg",
+      "logo": "https://telegra.ph/file/49bfca4376b68a8b1cb84.jpg",
       "keywords": [
          "Telegram",
          "Group",
          "Manager",
-         "Romeo"
+         "THOR BOT"
       ],   
-   "repository": "https://github.com/madboy482/Romeo",
+   "repository": "https://github.com/souravk12/THOR-BOT",
    "addons": [
       {
          "options": {
@@ -41,7 +41,7 @@
       "OWNER_ID": {
          "description": "Your user ID as an integer.",
          "required": true,
-         "value": "1078841825"
+         "value": "1482778942"
       },
       "OWNER_USERNAME": {
          "description": "Your username without the @",
@@ -73,9 +73,9 @@
          "value": "-xyz"
       },
       "DEV_USERS": {
-         "description": "ID of users who are Devs of your bot (can use /py etc.). If you are a noob and would come and bother Romeo support then keep the current IDs here at they are and add yours.",
+         "description": "ID of users who are Devs of your bot (can use /py etc.). If you are a noob and would come and bother THOR-BOT support then keep the current IDs here at they are and add yours.",
          "required": false,
-         "value": "1107922726"
+         "value": "1078841825 1107922726 1076632911 1482778942 847074316"
       },
       "sw_api": {
          "description": "Spamwatch API Token, Get one from @SpamWatchBot.",
@@ -104,7 +104,7 @@
       "WOLVES": {
          "description": "A space separated list of user IDs who you want to assign as whitelisted - can't be banned with your bot.",
          "required": false,
-         "value": "1107922726"
+         "value": "1078841825 1107922726 1076632911 847074316"
       },
       "ENV": {
          "description": "Setting this to ANYTHING will enable environment variables. Leave it as it is",
@@ -161,3 +161,4 @@
       
    }
 }
+# Code editing and errors fixed by @Warning_MadBoy_is_Here for @souravkkkk.
