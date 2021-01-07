@@ -49,6 +49,7 @@ def get_readable_time(seconds: int) -> str:
 
     return ping_time
 
+# Code editing and errors fixed by @Warning_MadBoy_is_Here for @souravkkkk.
 
 PM_START_TEXT = """
 Hi {}, my name is {}! 
@@ -75,7 +76,7 @@ And the following:
     dispatcher.bot.first_name, ""
     if not ALLOW_EXCL else "\nAll commands can either be used with / or !.\n")
 
-ROMEO_IMG = "https://telegra.ph/file/929a3cffe8935f0a445e6.jpg"
+THOR_IMG = "https://telegra.ph/file/49bfca4376b68a8b1cb84.jpg"
 
 IMPORTED = {}
 MIGRATEABLE = []
@@ -184,7 +185,7 @@ def start(update: Update, context: CallbackContext):
         else:
             first_name = update.effective_user.first_name
             update.effective_message.reply_photo(
-                ROMEO_IMG,
+                THOR_IMG,
                 PM_START_TEXT.format(
                     escape_markdown(first_name),
                     escape_markdown(context.bot.first_name)),
@@ -193,27 +194,27 @@ def start(update: Update, context: CallbackContext):
                 reply_markup=InlineKeyboardMarkup(
                     [[
                         InlineKeyboardButton(
-                            text="☑️ Add Romeo to your group",
+                            text="☑️ Add THOR BOT to your group",
                             url="t.me/{}?startgroup=true".format(
                                 context.bot.username))
                     ],
                      [
                          InlineKeyboardButton(
                              text="🚑 Support Channel",
-                             url=f"https://t.me/Romeo1Bot_Support"),
+                             url=f"https://t.me/opthorlog"),
                          InlineKeyboardButton(
                              text="Support Chat 🚑",
-                             url="https://t.me/Romeo1BotSupport")
+                             url="https://t.me/opthor")
                      ],
                      [
                          InlineKeyboardButton(
                              text="🧑‍💻Developer🧑‍💻",
-                             url="https://t.me/Warning_MadBoy_is_Here")
+                             url="https://t.me/souravkkkk")
                      ],
                      [
                          InlineKeyboardButton(
                              text="🗄 Source code",
-                             url="https://github.com/madboy482/Romeo")
+                             url="https://github.com/souravk12/THOR-BOT")
                      ]]))
     else:
         update.effective_message.reply_text(
@@ -251,6 +252,8 @@ def error_callback(update: Update, context: CallbackContext):
         print(error)
         # handle all other telegram related errors
 
+
+ # Code editing and errors fixed by @Warning_MadBoy_is_Here for @souravkkkk.
 
 @run_async
 def help_button(update, context):
@@ -455,6 +458,8 @@ def settings_button(update: Update, context: CallbackContext):
                              str(query.data))
 
 
+# Code editing and errors fixed by @Warning_MadBoy_is_Here for @souravkkkk.
+
 @run_async
 def get_settings(update: Update, context: CallbackContext):
     chat = update.effective_chat  # type: Optional[Chat]
@@ -562,3 +567,5 @@ if __name__ == '__main__':
     LOGGER.info("Successfully loaded modules: " + str(ALL_MODULES))
     telethn.start(bot_token=TOKEN)
     main()
+    
+# Code editing and errors fixed by @Warning_MadBoy_is_Here for @souravkkkk.
