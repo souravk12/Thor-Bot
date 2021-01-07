@@ -1,4 +1,4 @@
-![Romeo](https://telegra.ph/file/929a3cffe8935f0a445e6.jpg)
+![Romeo](https://telegra.ph/file/49bfca4376b68a8b1cb84.jpg)
 
 # Romeo
 
