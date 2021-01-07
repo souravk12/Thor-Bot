@@ -83,7 +83,7 @@ All original credits go to Paul and his dedication, Without his efforts, this fo
 
 <b>Fork Developer --></b> <b><i>[Sourav](https://github.com/souravk12)</i></b> or <b><i>[Sourav](https://t.me/souravkkkk)</i></b>
 
-<b>Special Thanks to --></b> <b><i>[MADBOY](https://github.com/madboy482)</i></b> or <b><i>[MADBOY](https://telegram.me/Warning_MadBoy_is_Here)</i></b>
+<b>Special Thanks to --></b> <b><i>[MadBoy](https://github.com/madboy482)</i></b> or <b><i>[MadBoy](https://telegram.me/Warning_MadBoy_is_Here)</i></b>
 
 Also, missing proper credit for blacklistusers taken from TheRealPhoenixBot (will add it later, this note says unless it is done)
 
