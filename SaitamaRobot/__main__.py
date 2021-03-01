@@ -209,12 +209,12 @@ def start(update: Update, context: CallbackContext):
                      [
                          InlineKeyboardButton(
                              text="🧑‍💻Developer🧑‍💻",
-                             url="https://t.me/souravkkkk")
+                             url="https://t.me/souravkkk")
                      ],
                      [
                          InlineKeyboardButton(
                              text="🗄 Source code",
-                             url="https://github.com/souravk12/THOR-BOT")
+                             url="https://github.com/anime-thor/THOR-BOT")
                      ]]))
     else:
         update.effective_message.reply_text(
