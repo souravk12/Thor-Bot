@@ -49,7 +49,7 @@ def get_readable_time(seconds: int) -> str:
 
     return ping_time
 
-# Code editing and errors fixed by @Warning_MadBoy_is_Here for @souravkkkk.
+# Code editing and errors fixed by @souravkkkk.
 
 PM_START_TEXT = """
 Hi {}, my name is {}! 
@@ -253,7 +253,7 @@ def error_callback(update: Update, context: CallbackContext):
         # handle all other telegram related errors
 
 
- # Code editing and errors fixed by @Warning_MadBoy_is_Here for @souravkkkk.
+ # Code editing and errors fixed by @souravkkkk.
 
 @run_async
 def help_button(update, context):
@@ -458,7 +458,7 @@ def settings_button(update: Update, context: CallbackContext):
                              str(query.data))
 
 
-# Code editing and errors fixed by @Warning_MadBoy_is_Here for @souravkkkk.
+# Code editing and errors fixed by @souravkkkk.
 
 @run_async
 def get_settings(update: Update, context: CallbackContext):
@@ -568,4 +568,4 @@ if __name__ == '__main__':
     telethn.start(bot_token=TOKEN)
     main()
     
-# Code editing and errors fixed by @Warning_MadBoy_is_Here for @souravkkkk.
+# Code editing and errors fixed by @souravkkkk.
