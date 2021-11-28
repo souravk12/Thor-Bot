@@ -201,10 +201,10 @@ def start(update: Update, context: CallbackContext):
                      [
                          InlineKeyboardButton(
                              text="🚑 Support Channel",
-                             url=f"https://t.me/opthorlog"),
+                             url=f"https://t.me/opthorlogs"),
                          InlineKeyboardButton(
                              text="Support Chat 🚑",
-                             url="https://t.me/opthor")
+                             url="https://t.me/Best_friends_chatting_group02")
                      ],
                      [
                          InlineKeyboardButton(
