@@ -56,7 +56,7 @@ def react(update: Update, context: CallbackContext):
     chat = update.effective_chat
     user = update.effective_user
     promoter = chat.get_member(user.id)
-    if user.id in OWNER_ID:
+    if user.id == OWNER_ID:
         if message.reply_to_message:
             message.reply_to_message.reply_text(react)
         else:
