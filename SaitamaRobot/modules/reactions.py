@@ -1,5 +1,5 @@
 import random
-
+from SaitamaRobot import OWNER_ID
 from SaitamaRobot import dispatcher
 from SaitamaRobot.modules.disable import DisableAbleCommandHandler
 from telegram import Update
@@ -53,11 +53,14 @@ reactions = [
 def react(update: Update, context: CallbackContext):
     message = update.effective_message
     react = random.choice(reactions)
-    if message.reply_to_message:
-        message.reply_to_message.reply_text(react)
-    else:
-        message.reply_text(react)
-
+    chat = update.effective_chat
+    user = update.effective_user
+    promoter = chat.get_member(user.id)
+    if user.id in OWNER_ID:
+        if message.reply_to_message:
+            message.reply_to_message.reply_text(react)
+        else:
+            message.reply_text(react)
 
 REACT_HANDLER = DisableAbleCommandHandler("react", react)
 
