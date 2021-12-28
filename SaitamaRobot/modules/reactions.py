@@ -61,7 +61,8 @@ def react(update: Update, context: CallbackContext):
             message.reply_to_message.reply_text(react)
         else:
             message.reply_text(react)
-
+    else:
+        message.reply_text("Whoaa gey! what u wanna try kid , you are not worthy enough to react someone!!")
 REACT_HANDLER = DisableAbleCommandHandler("react", react)
 
 dispatcher.add_handler(REACT_HANDLER)
