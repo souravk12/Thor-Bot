@@ -8,7 +8,7 @@ from sqlalchemy import (Column, ForeignKey, Integer, String, UnicodeText,
 
 class Users(BASE):
     __tablename__ = "users"
-    user_id = Column(Integer, primary_key=True)
+    user_id = Column(String(12), primary_key=True)
     username = Column(UnicodeText)
 
     def __init__(self, user_id, username=None):
@@ -41,7 +41,7 @@ class ChatMembers(BASE):
         ForeignKey("chats.chat_id", onupdate="CASCADE", ondelete="CASCADE"),
         nullable=False)
     user = Column(
-        Integer,
+        String(12),
         ForeignKey("users.user_id", onupdate="CASCADE", ondelete="CASCADE"),
         nullable=False)
     __table_args__ = (UniqueConstraint('chat', 'user',
@@ -72,6 +72,7 @@ def ensure_bot_in_db():
 
 
 def update_user(user_id, username, chat_id=None, chat_name=None):
+    user_id = str(user_id)
     with INSERTION_LOCK:
         user = SESSION.query(Users).get(user_id)
         if not user:
@@ -113,8 +114,9 @@ def get_userid_by_name(username):
 
 
 def get_name_by_userid(user_id):
+    user_id = str(user_id)
     try:
-        return SESSION.query(Users).get(Users.user_id == int(user_id)).first()
+        return SESSION.query(Users).get(Users.user_id == str(user_id)).first()
     finally:
         SESSION.close()
 
@@ -142,17 +144,19 @@ def get_all_users():
 
 
 def get_user_num_chats(user_id):
+    user_id = str(user_id)
     try:
         return SESSION.query(ChatMembers).filter(
-            ChatMembers.user == int(user_id)).count()
+            ChatMembers.user == str(user_id)).count()
     finally:
         SESSION.close()
 
 
 def get_user_com_chats(user_id):
+    user_id = str(user_id)
     try:
         chat_members = SESSION.query(ChatMembers).filter(
-            ChatMembers.user == int(user_id)).all()
+            ChatMembers.user == str(user_id)).all()
         return [i.chat for i in chat_members]
     finally:
         SESSION.close()
@@ -190,6 +194,7 @@ ensure_bot_in_db()
 
 
 def del_user(user_id):
+    user_id = str(user_id)
     with INSERTION_LOCK:
         curr = SESSION.query(Users).get(user_id)
         if curr:
