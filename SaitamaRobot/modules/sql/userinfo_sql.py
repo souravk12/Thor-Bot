@@ -1,12 +1,12 @@
 import threading
 
 from SaitamaRobot.modules.sql import BASE, SESSION
-from sqlalchemy import Column, Integer, UnicodeText
+from sqlalchemy import Column, Integer, UnicodeText , String
 
 
 class UserInfo(BASE):
     __tablename__ = "userinfo"
-    user_id = Column(Integer, primary_key=True)
+    user_id = Column(String(12), primary_key=True)
     info = Column(UnicodeText)
 
     def __init__(self, user_id, info):
@@ -19,7 +19,7 @@ class UserInfo(BASE):
 
 class UserBio(BASE):
     __tablename__ = "userbio"
-    user_id = Column(Integer, primary_key=True)
+    user_id = Column(String(12), primary_key=True)
     bio = Column(UnicodeText)
 
     def __init__(self, user_id, bio):
@@ -37,6 +37,7 @@ INSERTION_LOCK = threading.RLock()
 
 
 def get_user_me_info(user_id):
+    user_id = str(user_id)
     userinfo = SESSION.query(UserInfo).get(user_id)
     SESSION.close()
     if userinfo:
@@ -45,6 +46,7 @@ def get_user_me_info(user_id):
 
 
 def set_user_me_info(user_id, info):
+    user_id = str(user_id)
     with INSERTION_LOCK:
         userinfo = SESSION.query(UserInfo).get(user_id)
         if userinfo:
@@ -56,6 +58,7 @@ def set_user_me_info(user_id, info):
 
 
 def get_user_bio(user_id):
+    user_id = str(user_id)
     userbio = SESSION.query(UserBio).get(user_id)
     SESSION.close()
     if userbio:
@@ -64,6 +67,7 @@ def get_user_bio(user_id):
 
 
 def set_user_bio(user_id, bio):
+    user_id = str(user_id)
     with INSERTION_LOCK:
         userbio = SESSION.query(UserBio).get(user_id)
         if userbio:
