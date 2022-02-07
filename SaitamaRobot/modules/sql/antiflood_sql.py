@@ -1,6 +1,6 @@
 import threading
 
-from sqlalchemy import String, Column, Integer, UnicodeText
+from sqlalchemy import String, Column, Integer, UnicodeText, BigInteger
 
 from SaitamaRobot.modules.sql import SESSION, BASE
 DEF_COUNT = 1
