@@ -214,7 +214,7 @@ def start(update: Update, context: CallbackContext):
                      [
                          InlineKeyboardButton(
                              text="❤️DONATE❤️",
-                             url="https://t.me/utricksybl")
+                             url="https://t.me/skgoyalapl")
                      ],
                      [
                          InlineKeyboardButton(
