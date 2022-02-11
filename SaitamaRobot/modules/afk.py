@@ -19,7 +19,10 @@ def afk(update: Update, context: CallbackContext):
     args = update.effective_message.text.split(None, 1)
     user = update.effective_user
     if user.id in sql2.BLACKLIST_USERS:
-        return
+        try:
+          update.effective_message.reply_text("You are blacklisted my child! so go sleep nigga.")
+        except BadRequest:
+          return
     if not user:  # ignore channels
         return
 
