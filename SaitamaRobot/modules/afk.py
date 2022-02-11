@@ -52,7 +52,8 @@ def afk(update: Update, context: CallbackContext):
 def no_longer_afk(update: Update, context: CallbackContext):
     user = update.effective_user
     message = update.effective_message
-
+    if user.id in sql2.BLACKLIST_USERS:
+        return
     if not user:  # ignore channels
         return
 
@@ -79,6 +80,8 @@ def reply_afk(update: Update, context: CallbackContext):
     message = update.effective_message
     userc = update.effective_user
     userc_id = userc.id
+    if userc_id in sql2.BLACKLIST_USERS:
+        return
     if message.entities and message.parse_entities(
         [MessageEntity.TEXT_MENTION, MessageEntity.MENTION]):
         entities = message.parse_entities(
