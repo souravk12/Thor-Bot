@@ -4,7 +4,7 @@ from SaitamaRobot import dispatcher
 from SaitamaRobot.modules.disable import (DisableAbleCommandHandler,
                                           DisableAbleMessageHandler)
 from SaitamaRobot.modules.sql import afk_sql as sql
-import BreakersRoBot.modules.sql.blacklistusers_sql as sql2
+import SaitamaRobot.modules.sql.blacklistusers_sql as sql2
 from SaitamaRobot.modules.users import get_user_id
 from telegram import MessageEntity, Update
 from telegram.error import BadRequest
