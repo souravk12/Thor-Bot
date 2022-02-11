@@ -4,6 +4,7 @@ from SaitamaRobot import dispatcher
 from SaitamaRobot.modules.disable import (DisableAbleCommandHandler,
                                           DisableAbleMessageHandler)
 from SaitamaRobot.modules.sql import afk_sql as sql
+import BreakersRoBot.modules.sql.blacklistusers_sql as sql2
 from SaitamaRobot.modules.users import get_user_id
 from telegram import MessageEntity, Update
 from telegram.error import BadRequest
@@ -17,7 +18,8 @@ AFK_REPLY_GROUP = 8
 def afk(update: Update, context: CallbackContext):
     args = update.effective_message.text.split(None, 1)
     user = update.effective_user
-
+    if user.id in sql2.BLACKLIST_USERS:
+        return
     if not user:  # ignore channels
         return
 
