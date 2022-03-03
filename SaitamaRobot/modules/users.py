@@ -54,6 +54,7 @@ def broadcast(update: Update, context: CallbackContext):
     to_send = update.effective_message.text.split(None, 1)
 
     if len(to_send) >= 2:
+        update.effective_message.reply_text("Broadcast is in Progress my ser....")
         to_group = False
         to_user = False
         if to_send[0] == '/broadcastgroups':
