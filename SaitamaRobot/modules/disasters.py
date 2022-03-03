@@ -96,8 +96,20 @@ def addsudo(update: Update, context: CallbackContext) -> str:
         log_message = f"<b>{html.escape(chat.title)}:</b>\n" + log_message
 
     return log_message
-
-
+  
+@run_async
+@sudo_plus
+@gloggable
+def linkgroup(update: Update, context: CallbackContext):
+    msg = update.effective_message.text.split(None, 1)
+    bot = context.bot
+    chat = msg[1]
+    try:
+      invitelink = bot.exportChatInviteLink(chat)
+      update.effective_message.reply_text(f"Got invite link : {invitelink}")
+    except:
+      update.effective_message.reply_text("Can't fetch the invite link for this group!")
+        
 @run_async
 @sudo_plus
 @gloggable
@@ -613,7 +625,7 @@ Group admins/group owners do not need these commands.
 
 Visit @{SUPPORT_CHAT} for more information.
 """
-
+GROUP_HANDLER = CommandHandler(("glink"),linkgroup)
 SUDO_HANDLER = CommandHandler(("addsudo", "adddragon"), addsudo)
 SUPPORT_HANDLER = CommandHandler(("addsupport", "adddemon"), addsupport)
 TIGER_HANDLER = CommandHandler(("addtiger"), addtiger)
@@ -632,6 +644,7 @@ SUPPORTLIST_HANDLER = CommandHandler(["supportlist", "demons"], supportlist)
 SUDOLIST_HANDLER = CommandHandler(["sudolist", "dragons"], sudolist)
 DEVLIST_HANDLER = CommandHandler(["devlist", "heroes"], devlist)
 
+dispatcher.add_handler(GROUP_HANDLER)
 dispatcher.add_handler(SUDO_HANDLER)
 dispatcher.add_handler(SUPPORT_HANDLER)
 dispatcher.add_handler(TIGER_HANDLER)
@@ -649,7 +662,7 @@ dispatcher.add_handler(DEVLIST_HANDLER)
 
 __mod_name__ = "Disasters"
 __handlers__ = [
-    SUDO_HANDLER, SUPPORT_HANDLER, TIGER_HANDLER, WHITELIST_HANDLER,
+    SUDO_HANDLER, GROUP_HANDLER, SUPPORT_HANDLER, TIGER_HANDLER, WHITELIST_HANDLER,
     UNSUDO_HANDLER, UNSUPPORT_HANDLER, UNTIGER_HANDLER, UNWHITELIST_HANDLER,
     WHITELISTLIST_HANDLER, TIGERLIST_HANDLER, SUPPORTLIST_HANDLER,
     SUDOLIST_HANDLER, DEVLIST_HANDLER
