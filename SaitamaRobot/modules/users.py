@@ -52,8 +52,10 @@ def get_user_id(username):
 @dev_plus
 def broadcast(update: Update, context: CallbackContext):
     to_send = update.effective_message.text.split(None, 1)
-
+    
     if len(to_send) >= 2:
+        errors = 'List of errors\n0. Error Name'
+        P = 1
         update.effective_message.reply_text("Broadcast is in Progress my ser....")
         to_group = False
         to_user = False
@@ -76,7 +78,9 @@ def broadcast(update: Update, context: CallbackContext):
                         parse_mode="MARKDOWN",
                         disable_web_page_preview=True)
                     sleep(0.1)
-                except TelegramError:
+                except TelegramError as e:
+                    errors += "{}. {}\n".format(P,e)
+                    P += 1
                     failed += 1
         if to_user:
             for user in users:
@@ -87,11 +91,19 @@ def broadcast(update: Update, context: CallbackContext):
                         parse_mode="MARKDOWN",
                         disable_web_page_preview=True)
                     sleep(0.1)
-                except TelegramError:
+                except TelegramError as e:
+                    errors += "{}. {}\n".format(P,e)
+                    P += 1
                     failed_user += 1
         update.effective_message.reply_text(
             f"Broadcast complete.\nGroups failed: {failed}.\nUsers failed: {failed_user}."
         )
+        with BytesIO(str.encode(errors)) as output:
+        output.name = "errors.txt"
+        update.effective_message.reply_document(
+            document=output,
+            filename="errors.txt",
+            caption="Here is the list of reasons lead to failure of broadcast.")
 
 
 @run_async
