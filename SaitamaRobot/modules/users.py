@@ -54,6 +54,7 @@ def broadcast(update: Update, context: CallbackContext):
     to_send = update.effective_message.text.split(None, 1)
     
     if len(to_send) >= 2:
+        err = []
         errors = 'List of errors\n0. Error Name'
         P = 1
         update.effective_message.reply_text("Broadcast is in Progress my ser....")
@@ -78,9 +79,9 @@ def broadcast(update: Update, context: CallbackContext):
                         parse_mode="MARKDOWN",
                         disable_web_page_preview=True)
                     sleep(0.1)
-                except TelegramError as e:
-                    errors += "{}. {}\n".format(P,e)
-                    P += 1
+                except error as e:
+                    if e not in err:
+                      err.append(e)
                     failed += 1
         if to_user:
             for user in users:
@@ -91,10 +92,13 @@ def broadcast(update: Update, context: CallbackContext):
                         parse_mode="MARKDOWN",
                         disable_web_page_preview=True)
                     sleep(0.1)
-                except TelegramError as e:
-                    errors += "{}. {}\n".format(P,e)
-                    P += 1
+                except error as e:
+                    if e not in err:
+                      err.append(e)
                     failed_user += 1
+        for el in err:
+          errors += "{}. {}\n".format(P,el)
+          P += 1
         update.effective_message.reply_text(
             f"Broadcast complete.\nGroups failed: {failed}.\nUsers failed: {failed_user}."
         )
