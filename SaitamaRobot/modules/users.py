@@ -79,7 +79,7 @@ def broadcast(update: Update, context: CallbackContext):
                         parse_mode="MARKDOWN",
                         disable_web_page_preview=True)
                     sleep(0.1)
-                except error as e:
+                except Exception as e:
                     if e not in err:
                       err.append(e)
                     failed += 1
@@ -92,7 +92,7 @@ def broadcast(update: Update, context: CallbackContext):
                         parse_mode="MARKDOWN",
                         disable_web_page_preview=True)
                     sleep(0.1)
-                except error as e:
+                except Exception as e:
                     if e not in err:
                       err.append(e)
                     failed_user += 1
