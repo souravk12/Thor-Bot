@@ -99,11 +99,8 @@ def broadcast(update: Update, context: CallbackContext):
             f"Broadcast complete.\nGroups failed: {failed}.\nUsers failed: {failed_user}."
         )
         with BytesIO(str.encode(errors)) as output:
-        output.name = "errors.txt"
-        update.effective_message.reply_document(
-            document=output,
-            filename="errors.txt",
-            caption="Here is the list of reasons lead to failure of broadcast.")
+          output.name = "errors.txt"
+          update.effective_message.reply_document(document=output,filename="errors.txt",caption="Here is the list of reasons lead to failure of broadcast.")
 
 
 @run_async
