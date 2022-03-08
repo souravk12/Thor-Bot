@@ -137,11 +137,10 @@ def userss(update: Update, context: CallbackContext):
             pass
     with BytesIO(str.encode(userfile)) as output:
         output.name = "users_list.txt"
-        caption = "Here is the list of All {} users in my database.".format(P)
         update.effective_message.reply_document(
             document=output,
             filename="users_list.txt",
-            caption)   
+            caption="Here is the list of All {} users in my database.".format(P))   
 @run_async
 @sudo_plus
 def chats(update: Update, context: CallbackContext):
