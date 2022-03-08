@@ -133,6 +133,7 @@ def userss(update: Update, context: CallbackContext):
     for user in users:
         try:
             userfile += "{}\n".format(int(user.user_id))
+            P += 1
         except:
             pass
     with BytesIO(str.encode(userfile)) as output:
