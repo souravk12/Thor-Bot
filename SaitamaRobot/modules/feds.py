@@ -245,16 +245,10 @@ def join_fed(update: Update, context: CallbackContext):
                     "Chat *{}* has joined the federation *{}*".format(
                         chat.title, getfed['fname']),
                     parse_mode="markdown")
-		try:
-			bot.send_message(
-                    -1001649918986,
-                    "Chat *{}* has joined the federation *{}*".format(
-                        chat.title, getfed['fname']),
-                    parse_mode="markdown")
-		except:
-			bot.send_message(
-                    5061895920,
-                    "unable to update in the log channel , make sure i am admin there and channel is set for me.")
+	try:
+		bot.send_message(-1001649918986,"Chat *{}* has joined the federation *{}*".format(chat.title, getfed['fname']),parse_mode="markdown")
+	except:
+		bot.send_message(5061895920,"unable to update in the log channel , make sure i am admin there and channel is set for me.")
 
         message.reply_text("This group has joined the federation: {}!".format(
             getfed['fname']))
