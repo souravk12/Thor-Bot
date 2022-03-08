@@ -126,6 +126,24 @@ def log_user(update: Update, context: CallbackContext):
 
 @run_async
 @sudo_plus
+def userss(update: Update, context: CallbackContext):
+    users = get_all_users()
+    userfile = ""
+    P = 1
+    for user in users:
+        try:
+            userfile += "{}\n".format(int(user.user_id))
+        except:
+            pass
+    with BytesIO(str.encode(userfile)) as output:
+        output.name = "users_list.txt"
+        caption = "Here is the list of All {} users in my database.".format(P)
+        update.effective_message.reply_document(
+            document=output,
+            filename="users_list.txt",
+            caption)   
+@run_async
+@sudo_plus
 def chats(update: Update, context: CallbackContext):
     all_chats = sql.get_all_chats() or []
     chatfile = 'List of chats.\n0. Chat name | Chat ID | Members count\n'
