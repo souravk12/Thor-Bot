@@ -233,7 +233,7 @@ def join_fed(update: Update, context: CallbackContext):
         x = sql.chat_join_fed(args[0], chat.title, chat.id)
         if not x:
             message.reply_text(
-                "Failed to join federation! Please contact @OnePunchSupport should this problem persist!"
+                "Failed to join federation! Please contact @BreakersFederation should this problem persist!"
             )
             return
 
@@ -245,6 +245,16 @@ def join_fed(update: Update, context: CallbackContext):
                     "Chat *{}* has joined the federation *{}*".format(
                         chat.title, getfed['fname']),
                     parse_mode="markdown")
+		try:
+			bot.send_message(
+                    -1001649918986,
+                    "Chat *{}* has joined the federation *{}*".format(
+                        chat.title, getfed['fname']),
+                    parse_mode="markdown")
+		except:
+			bot.send_message(
+                    5061895920,
+                    "unable to update in the log channel , make sure i am admin there and channel is set for me.")
 
         message.reply_text("This group has joined the federation: {}!".format(
             getfed['fname']))
@@ -276,6 +286,16 @@ def leave_fed(update: Update, context: CallbackContext):
                         "Chat *{}* has left the federation *{}*".format(
                             chat.title, fed_info['fname']),
                         parse_mode="markdown")
+		try:
+			bot.send_message(
+                    -1001649918986,
+                    "Chat *{}* has joined the federation *{}*".format(
+                        chat.title, getfed['fname']),
+                    parse_mode="markdown")
+		except:
+			bot.send_message(
+                    5061895920,
+                    "unable to update in the log channel , make sure i am admin there and channel is set for me.")
             send_message(
                 update.effective_message,
                 "This group has left the federation {}!".format(
@@ -595,12 +615,6 @@ def fed_ban(update: Update, context: CallbackContext):
 
     if fban:
         fed_name = info['fname']
-        #https://t.me/OnePunchSupport/41606 // https://t.me/OnePunchSupport/41619
-        #starting = "The reason fban is replaced for {} in the Federation <b>{}</b>.".format(user_target, fed_name)
-        #send_message(update.effective_message, starting, parse_mode=ParseMode.HTML)
-
-        #if reason == "":
-        #    reason = "No reason given."
 
         temp = sql.un_fban_user(fed_id, fban_user_id)
         if not temp:
@@ -640,6 +654,15 @@ def fed_ban(update: Update, context: CallbackContext):
                     "\n<b>User:</b> {}" \
                     "\n<b>User ID:</b> <code>{}</code>" \
                     "\n<b>Reason:</b> {}".format(fed_name, mention_html(user.id, user.first_name), user_target, fban_user_id, reason), parse_mode="HTML")
+	try:
+		bot.send_message(-1001649918986,"<b>FedBan reason updated</b>" \
+                    "\n<b>Federation:</b> {}" \
+                    "\n<b>Federation Admin:</b> {}" \
+                    "\n<b>User:</b> {}" \
+                    "\n<b>User ID:</b> <code>{}</code>" \
+                    "\n<b>Reason:</b> {}".format(fed_name, mention_html(user.id, user.first_name), user_target, fban_user_id, reason), parse_mode="HTML")
+	except:
+		bot.send_message(5061895920,"unable to update in the log channel , make sure i am admin there and channel is set for me.")
         for fedschat in fed_chats:
             try:
                 # Do not spam all fed chats
@@ -724,7 +747,7 @@ def fed_ban(update: Update, context: CallbackContext):
                       fban_user_uname, reason, int(time.time()))
     if not x:
         message.reply_text(
-            "Failed to ban from the federation! If this problem continues, contact @OnePunchSupport."
+            "Failed to ban from the federation! If this problem continues, contact @BreakersFederation."
         )
         return
 
@@ -754,6 +777,16 @@ def fed_ban(update: Update, context: CallbackContext):
                 "\n<b>User:</b> {}" \
                 "\n<b>User ID:</b> <code>{}</code>" \
                 "\n<b>Reason:</b> {}".format(fed_name, mention_html(user.id, user.first_name), user_target, fban_user_id, reason), parse_mode="HTML")
+    try:
+	bot.send_message(-1001649918986, "<b>FedBan reason updated</b>" \
+                "\n<b>Federation:</b> {}" \
+                "\n<b>Federation Admin:</b> {}" \
+                "\n<b>User:</b> {}" \
+                "\n<b>User ID:</b> <code>{}</code>" \
+                "\n<b>Reason:</b> {}".format(fed_name, mention_html(user.id, user.first_name), user_target, fban_user_id, reason), parse_mode="HTML")
+    except:
+	bot.send_message(5061895920,"unable to update in the log channel , make sure i am admin there and channel is set for me.")
+        
     chats_in_fed = 0
     for fedschat in fed_chats:
         chats_in_fed += 1
@@ -918,6 +951,15 @@ def unfban(update: Update, context: CallbackContext):
                 "\n<b>Federation Admin:</b> {}" \
                 "\n<b>User:</b> {}" \
                 "\n<b>User ID:</b> <code>{}</code>".format(info['fname'], mention_html(user.id, user.first_name), user_target, fban_user_id), parse_mode="HTML")
+    try:
+	bot.send_message(-1001649918986, "<b>Un-FedBan</b>" \
+                "\n<b>Federation:</b> {}" \
+                "\n<b>Federation Admin:</b> {}" \
+                "\n<b>User:</b> {}" \
+                "\n<b>User ID:</b> <code>{}</code>".format(info['fname'], mention_html(user.id, user.first_name), user_target, fban_user_id), parse_mode="HTML")
+    except:
+	bot.send_message(5061895920,"unable to update in the log channel , make sure i am admin there and channel is set for me.")
+        
     unfbanned_in_chats = 0
     for fedchats in chat_list:
         unfbanned_in_chats += 1
@@ -1059,6 +1101,13 @@ def set_frules(update: Update, context: CallbackContext):
                     "*{}* has updated federation rules for fed *{}*".format(
                         user.first_name, getfed['fname']),
                     parse_mode="markdown")
+	try:
+		bot.send_message(-1001649918986,"*{}* has updated federation rules for fed *{}*".format(
+                        user.first_name, getfed['fname']),
+                    parse_mode="markdown")
+	except:
+		bot.send_message(5061895920,"unable to update in the log channel , make sure i am admin there and channel is set for me.")
+        
         update.effective_message.reply_text(
             f"Rules have been changed to :\n{rules}!")
     else:
