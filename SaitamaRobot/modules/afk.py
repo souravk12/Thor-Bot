@@ -25,28 +25,12 @@ def check_channel(update: Update, context: CallbackContext):
     chat = update.effective_chat
     bot = context.bot
     if str(chat.id) == "-1001788009214":
-        bot.sendMessage("-1001788009214", "Yes its the chat")
         user = update.effective_user
         log_message = ""
         user_id = user.id
         bot = context.bot
         if user_id==136817688:  # for channels
-            if str(chat.id) == "-1001788009214":
-                bot.sendMessage(
-                    "-1001788009214", "Yes its the chat and channel has messaged something")
-            log = (
-                f"<b>{html.escape(chat.title)}:</b>\n"
-                f"#BANNED\n"
-                f"<b>User:</b> {mention_html(user.id, html.escape(user.first_name))}\n"
-                "<b>Reason: Doing messages using channel.</b>")
-            try:
-                chat.kick_member(user_id)
-                bot.sendMessage(
-                    chat.id, log, parse_mode=ParseMode.HTML, quote=False)
-
-            except BadRequest as excp:
-                bot.sendMessage(
-                    chat.id, "Can't ban the user don't know why!!")
+            return
                 
                 
 @run_async
