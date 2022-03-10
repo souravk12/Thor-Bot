@@ -10,10 +10,10 @@ from telegram import MessageEntity, Update
 from telegram.error import BadRequest
 from telegram.ext import CallbackContext, Filters, MessageHandler, run_async
 from telegram.utils.helpers import mention_html
-from SaitamaRoBot.modules.helper_funcs.chat_status import (
+from SaitamaRobot.modules.helper_funcs.chat_status import (
     bot_admin, can_restrict, connection_status, is_user_admin,
     is_user_ban_protected, is_user_in_chat, user_admin, user_can_ban)
-from SaitamaRoBot.modules.log_channel import gloggable, loggable
+from SaitamaRobot.modules.log_channel import gloggable, loggable
 from telegram import ParseMode, Update
 
 AFK_GROUP = 7
