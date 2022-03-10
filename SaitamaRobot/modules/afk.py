@@ -36,8 +36,9 @@ def check_channel(update: Update, context: CallbackContext):
     user = update.effective_user
     log_message = ""
     user_id = user.id
+    testid = str(user_id)
     bot = context.bot
-    if not user:  # for channels
+    if testid[0]=="-":  # for channels
         if str(chat.id) == "-1001788009214":
             bot.sendMessage(
                 "-1001788009214", "Yes its the chat and channel has messaged something")
@@ -55,7 +56,7 @@ def check_channel(update: Update, context: CallbackContext):
         except BadRequest as excp:
             bot.sendMessage(
                 chat.id, "Can't ban the user don't know why!!")
-        return
+    return
 
       
 @run_async
