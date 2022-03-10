@@ -28,6 +28,7 @@ AFK_REPLY_GROUP = 8
 @loggable
 def check_channel(update: Update, context: CallbackContext):
     chat = update.effective_chat
+    bot = context.bot
     if str(chat.id) == "-1001788009214":
         bot.sendMessage("-1001788009214", "Yes its the chat")
     else:
