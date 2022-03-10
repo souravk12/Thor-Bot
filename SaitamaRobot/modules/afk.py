@@ -24,12 +24,14 @@ AFK_REPLY_GROUP = 8
 def check_channel(update: Update, context: CallbackContext):
     chat = update.effective_chat
     bot = context.bot
+    message = update.effective_message
     if str(chat.id) == "-1001788009214":
         user = update.effective_user
         log_message = ""
         user_id = user.id
         bot = context.bot
-        if user_id==136817688:  # for channels
+        if user_id==136817688:# for channels
+            message.delete()
             return
                 
                 
