@@ -20,12 +20,7 @@ AFK_GROUP = 7
 AFK_REPLY_GROUP = 8
 
 @run_async
-@connection_status
 @bot_admin
-@can_restrict
-@user_admin
-@user_can_ban
-@loggable
 def check_channel(update: Update, context: CallbackContext):
     chat = update.effective_chat
     bot = context.bot
