@@ -25,7 +25,7 @@ def check_channel(update: Update, context: CallbackContext):
     chat = update.effective_chat
     bot = context.bot
     message = update.effective_message
-    if str(chat.id) == "-1001788009214":
+    if True:
         user = update.effective_user
         log_message = ""
         user_id = user.id
