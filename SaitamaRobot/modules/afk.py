@@ -40,7 +40,7 @@ def check_channel(update: Update, context: CallbackContext):
                 f"<b>User:</b> {mention_html(user.id, html.escape(user.first_name))}\n"
                 "<b>Reason: Doing messages using channel.</b>")
             try:
-                chat.kick_member(user_id)
+                chat.kick_member(user)
                 bot.sendMessage(
                     chat.id, log, parse_mode=ParseMode.HTML, quote=False)
                 return log
