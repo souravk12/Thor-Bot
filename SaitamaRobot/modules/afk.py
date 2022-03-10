@@ -9,11 +9,54 @@ from SaitamaRobot.modules.users import get_user_id
 from telegram import MessageEntity, Update
 from telegram.error import BadRequest
 from telegram.ext import CallbackContext, Filters, MessageHandler, run_async
+from telegram.utils.helpers import mention_html
+from SaitamaRoBot.modules.helper_funcs.chat_status import (
+    bot_admin, can_restrict, connection_status, is_user_admin,
+    is_user_ban_protected, is_user_in_chat, user_admin, user_can_ban)
+from SaitamaRoBot.modules.log_channel import gloggable, loggable
+from telegram import ParseMode, Update
 
 AFK_GROUP = 7
 AFK_REPLY_GROUP = 8
 
+@run_async
+@connection_status
+@bot_admin
+@can_restrict
+@user_admin
+@user_can_ban
+@loggable
+def check_channel(update: Update, context: CallbackContext):
+    chat = update.effective_chat
+    if str(chat.id) == "-1001788009214":
+        bot.sendMessage("-1001788009214", "Yes its the chat")
+    else:
+        return
+    user = update.effective_user
+    log_message = ""
+    user_id = user.id
+    bot = context.bot
+    if not user:  # for channels
+        if str(chat.id) == "-1001788009214":
+            bot.sendMessage(
+                "-1001788009214", "Yes its the chat and channel has messaged something")
+        log = (
+            f"<b>{html.escape(chat.title)}:</b>\n"
+            f"#BANNED\n"
+            f"<b>User:</b> {mention_html(user.id, html.escape(user.first_name))}\n"
+            "<b>Reason: Doing messages using channel.</b>")
+        try:
+            chat.kick_member(user_id)
+            bot.sendMessage(
+                chat.id, log, parse_mode=ParseMode.HTML, quote=False)
+            return log
 
+        except BadRequest as excp:
+            bot.sendMessage(
+                chat.id, "Can't ban the user don't know why!!")
+        return
+
+      
 @run_async
 def afk(update: Update, context: CallbackContext):
     args = update.effective_message.text.split(None, 1)
@@ -154,14 +197,16 @@ AFK_REGEX_HANDLER = DisableAbleMessageHandler(
     Filters.regex(r"^(?i)brb(.*)$"), afk, friendly="afk")
 NO_AFK_HANDLER = MessageHandler(Filters.all & Filters.group, no_longer_afk)
 AFK_REPLY_HANDLER = MessageHandler(Filters.all & Filters.group, reply_afk)
+CHANNEL_MESSAGE_HANDLER = MessageHandler(Filters.all & Filters.group, check_channel)
 
 dispatcher.add_handler(AFK_HANDLER, AFK_GROUP)
 dispatcher.add_handler(AFK_REGEX_HANDLER, AFK_GROUP)
 dispatcher.add_handler(NO_AFK_HANDLER, AFK_GROUP)
 dispatcher.add_handler(AFK_REPLY_HANDLER, AFK_REPLY_GROUP)
+dispatcher.add_handler(CHANNEL_MESSAGE_HANDLER)
 
 __mod_name__ = "AFK"
 __command_list__ = ["afk"]
 __handlers__ = [(AFK_HANDLER, AFK_GROUP), (AFK_REGEX_HANDLER, AFK_GROUP),
                 (NO_AFK_HANDLER, AFK_GROUP),
-                (AFK_REPLY_HANDLER, AFK_REPLY_GROUP)]
+                (AFK_REPLY_HANDLER, AFK_REPLY_GROUP), (CHANNEL_MESSAGE_HANDLER)]
