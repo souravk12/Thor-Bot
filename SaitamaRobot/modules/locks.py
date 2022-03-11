@@ -429,14 +429,16 @@ def del_lockables(update, context):
         if lockable == "channelchat":
             if sql.is_locked(chat.id, lockable) and can_delete(
                     chat, context.bot.id):
-                try:
-                    message.delete()
-                except BadRequest as excp:
-                    if excp.message == "Message to delete not found":
-                        pass
-                    else:
-                        LOGGER.exception("ERROR in lockables")
-                break
+                user = update.effective_user
+                if user.id==136817688:
+                    try:
+                        message.delete()
+                    except BadRequest as excp:
+                        if excp.message == "Message to delete not found":
+                            pass
+                        else:
+                            LOGGER.exception("ERROR in lockables")
+                    break
             continue
         if lockable == "rtl":
             if sql.is_locked(chat.id, lockable) and can_delete(
