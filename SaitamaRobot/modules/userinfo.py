@@ -162,9 +162,9 @@ async def group_info(event) -> None:
         totallist = await event.client.get_participants(
             entity, filter=ChannelParticipantsAdmins)
         ch_full = await event.client(GetFullChannelRequest(channel=entity))
-    except:
+    except Exception as e:
         await event.reply(
-            "Can't for some reason, maybe it is a private one or that I am banned there."
+            f"Can't for some reason, maybe it is a private one or that I am banned there. \n Reason is : {e}"
         )
         return
     msg = f"**ID**: `{entity.id}`"
