@@ -157,6 +157,7 @@ def get_id(update: Update, context: CallbackContext):
         from_users=(TIGERS or []) + (DRAGONS or []) + (DEMONS or [])))
 async def group_info(event) -> None:
     chat = event.text.split(' ', 1)[1]
+    chat = int(chat)
     try:
         entity = await event.client.get_entity(chat)
         totallist = await event.client.get_participants(
