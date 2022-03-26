@@ -30,4 +30,3 @@ spamwatch
 alphabet_detector
 pyrate-limiter
 cachetools
-git+https://github.com/telegramdesktop/tdesktop.git
