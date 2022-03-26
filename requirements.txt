@@ -25,8 +25,9 @@ regex
 bleach
 git+https://github.com/starry69/python-markdown2.git
 wikipedia
-telethon
+telethon==1.19.5
 spamwatch
 alphabet_detector
 pyrate-limiter
 cachetools
+git+https://github.com/telegramdesktop/tdesktop/blob/dev/Telegram/Resources/tl/api.tl
