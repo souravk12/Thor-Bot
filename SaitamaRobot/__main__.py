@@ -219,7 +219,7 @@ def start(update: Update, context: CallbackContext):
                      [
                          InlineKeyboardButton(
                              text="🗄 Source code",
-                             url="https://github.com/anime-thor/THOR-BOT")
+                             url="https://t.me/souravkkk")
                      ]]))
     else:
         update.effective_message.reply_text(
