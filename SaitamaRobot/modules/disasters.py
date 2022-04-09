@@ -54,21 +54,22 @@ def checkr(update: Update, context: CallbackContext):
       message.reply_text("Use this command in some group!")
       return
     rep = ""
-    if not is_bot_admin(chat,bot.id):
+    bot_member = chat.get_member(bot.id)
+    if not bot_member.status in ('administrator', 'creator'):
         message.reply_text("Bot is not admin there!!")
         return
     else:
-        rep += "Bot have following Rights In this chat\n"
-        if chat.get_member(bot.id).can_restrict_members:
+        rep += "Bot have following Rights In this chat\n\n"
+        if bot_member.can_change_info:
             rep += "Can Change info : YES✅\n"
         else:
             rep += "Can Change info : NO❌\n"
-        if chat.get_member(bot.id).can_restrict_members:
+        if bot_member.can_restrict_members:
             rep += "Can Ban Users : YES✅\n"
         else:
             rep += "Can Ban Users : NO❌\n"
             
-        if chat.get_member(bot.id).can_pin_messages:
+        if bot_member.can_pin_messages:
             rep += "Can Pin Messages : YES✅\n"
         else:
             rep += "Can Pin Messages : NO❌\n"
@@ -78,11 +79,11 @@ def checkr(update: Update, context: CallbackContext):
         except:
           invitelink = "Can't Get Invitelink"
           rep += "Can Invite Users : NO❌\n"
-        if chat.get_member(bot.id).can_promote_members:
+        if bot_member.can_promote_members:
             rep += "Can Add Admins : YES✅\n"
         else:
             rep += "Can Add Admins : NO❌\n"
-        if chat.get_member(bot.id).can_delete_messages:
+        if bot_member.can_delete_messages:
             rep += "Can Delete Messages : YES✅\n"
         else:
             rep += "Can Delete Messages : NO❌\n"
@@ -91,7 +92,7 @@ def checkr(update: Update, context: CallbackContext):
         else:
           rep += "\n"
         rep += "Chat Id : {}\n".format(chat.id)
-        rep += "Invite Link :{}\n".format(invitelink)
+        rep += "Invite Link : {} \n".format(invitelink)
         bot.send_message(user.id,rep)
     return
   
