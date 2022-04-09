@@ -87,9 +87,11 @@ def checkr(update: Update, context: CallbackContext):
         else:
             rep += "Can Delete Messages : NO❌\n"
         if chat.username:
-          rep += "\nUsername : **@{}**\n".format(chat.username)
-        rep += "Chat Id : `{}`\n".format(chat.id)
-        rep += "Invite Link :** {} **\n".format(invitelink)
+          rep += "\nUsername : @{}\n".format(chat.username)
+        else:
+          rep += "\n"
+        rep += "Chat Id : {}\n".format(chat.id)
+        rep += "Invite Link :{}\n".format(invitelink)
         bot.send_message(user.id,rep)
     return
   
