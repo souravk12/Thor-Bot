@@ -67,10 +67,10 @@ def totranslate(update: Update, context: CallbackContext):
 #             detection = trl.detect({text})
 #             trans_str = trl.translate(text, lang_tgt=dest_lang)
             trans_str = trl.translate(text, dest=dest_lang)
-#             return message.reply_text(
+            return message.reply_text(f"Translated from `{trans_str.src}` to `{trans_str.dest}`:\n`{trans_str.text}`",parse_mode=ParseMode.MARKDOWN)
+#               return message.reply_text(
 #                 f"Translated from `{detection[0]}` to `{dest_lang}`:\n`{trans_str}`",
 #                 parse_mode=ParseMode.MARKDOWN)
-              return message.reply_text(f"Translated from `{trans_str.src}` to `{trans_str.dest}`:\n`{trans_str.text}`",parse_mode=ParseMode.MARKDOWN)
         else:
 #             trans_str = trl.translate(
 #                 text, lang_tgt=dest_lang, lang_src=source_lang)
