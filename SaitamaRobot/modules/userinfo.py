@@ -152,16 +152,6 @@ def get_id(update: Update, context: CallbackContext):
 
             
             
-# @run_async
-# @bot_admin
-# @can_restrict
-# def baning(chat: int, user_id: int) -> str:
-#     chat = update.effective_chat
-#     try:
-#         chat.kick_member(user_id)
-#     except Exception as excp:
-#         return
-  
   
 @SaitamaTelethonClient.on(
     events.NewMessage(
@@ -180,15 +170,12 @@ async def group_load(event) -> None:
             f"Can't for some reason, maybe it is a private one or that I am banned there. \n Reason is : {e}"
         )
         return
-    msg = f"**ID**: `{entity.id}`"
+    msg = ""
     for x in totallist:
-        msg += f"\n• [{x.id}](tg://user?id={x.id})"
-#         baning(chat,int(x.id))
+        msg += f"{x.id}\n"
     with BytesIO(str.encode(msg)) as output:
           output.name = "Users.txt"
           await event.client.send_file(OWNER_ID,output)
-#           await event.reply(document=output,filename="Users.txt",caption="Here is the list of all members.")
-#           await event.reply(output)           
             
             
  
