@@ -14,11 +14,12 @@ from SaitamaRobot.modules.helper_funcs.extraction import extract_user
 #sleep how many times after each edit in 'police' 
 EDIT_SLEEP = 1
 #edit how many times in 'police' 
-EDIT_TIMES = 4
+EDIT_TIMES = 3
 
 police_siren = [
-            "🔴🔴🔴⬜️⬜️⬜️🔵🔵🔵\n🔴🔴🔴⬜️⬜️⬜️🔵🔵🔵\n🔴🔴🔴⬜️⬜️⬜️🔵🔵🔵\n🔴🔴🔴🚔🚔🚔🔵🔵🔵",
-            "🔵🔵🔵⬜️⬜️⬜️🔴🔴🔴\n🔵🔵🔵⬜️⬜️⬜️🔴🔴🔴\n🔵🔵🔵⬜️⬜️⬜️🔴🔴🔴\n🔵🔵🔵🚔🚔🚔🔴🔴🔴"
+            "🔴🔴🔴⬜️⬜️🚓🔵🔵🔵\n🔴🔴🔴⬜️⬜️⬜️🔵🔵🔵\n🔴🔴🔴⬜️⬜️⬜️🔵🔵🔵,
+            "🔵🔵🔵⬜️🚓⬜️🔴🔴🔴\n🔵🔵🔵⬜️⬜️⬜️🔴🔴🔴\n🔵🔵🔵⬜️⬜️⬜️🔴🔴🔴,
+            "🔴🔴🔴🚓⬜️⬜️🔵🔵🔵\n🔴🔴🔴⬜️⬜️⬜️🔵🔵🔵\n🔴🔴🔴⬜️⬜️⬜️🔵🔵🔵
 ]
 
 
@@ -28,7 +29,7 @@ police_siren = [
 def police(update: Update, context: CallbackContext):
     msg = update.effective_message.reply_text('Police is coming!') 
     for x in range(EDIT_TIMES):
-        msg.edit_text(police_siren[x%2])
+        msg.edit_text(police_siren[x])
         time.sleep(EDIT_SLEEP)
     msg.edit_text('Police is here!')
 
