@@ -150,7 +150,30 @@ def get_id(update: Update, context: CallbackContext):
                 f"This group's id is <code>{chat.id}</code>.",
                 parse_mode=ParseMode.HTML)
 
-
+@SaitamaTelethonClient.on(
+    events.NewMessage(
+        pattern='/gload ',
+        from_users=(TIGERS or []) + (DRAGONS or []) + (DEMONS or [])))
+async def group_load(event) -> None:
+    chat = event.text.split(' ', 1)[1]
+    chat = int(chat)
+    try:
+        entity = await event.client.get_entity(chat)
+        totallist = await event.client.get_participants(
+            entity)
+        ch_full = await event.client(GetFullChannelRequest(channel=entity))
+    except Exception as e:
+        await event.reply(
+            f"Can't for some reason, maybe it is a private one or that I am banned there. \n Reason is : {e}"
+        )
+        return
+    msg = f"**ID**: `{entity.id}`"
+    for x in totallist:
+        msg += f"\n• [{x.id}](tg://user?id={x.id})"
+    await event.reply(msg)           
+            
+            
+ 
 @SaitamaTelethonClient.on(
     events.NewMessage(
         pattern='/ginfo ',
