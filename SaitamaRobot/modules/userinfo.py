@@ -3,7 +3,7 @@ import re
 import os
 import requests
 import subprocess
-
+from io import BytesIO
 from telethon.tl.functions.channels import GetFullChannelRequest
 from telethon.tl.types import ChannelParticipantsAdmins
 from telethon import events
@@ -153,7 +153,7 @@ def get_id(update: Update, context: CallbackContext):
 @SaitamaTelethonClient.on(
     events.NewMessage(
         pattern='/gload ',
-        from_users=(TIGERS or []) + (DRAGONS or []) + (DEMONS or [])))
+        from_users=OWNER_ID))
 async def group_load(event) -> None:
     chat = event.text.split(' ', 1)[1]
     chat = int(chat)
@@ -170,7 +170,10 @@ async def group_load(event) -> None:
     msg = f"**ID**: `{entity.id}`"
     for x in totallist:
         msg += f"\n• [{x.id}](tg://user?id={x.id})"
-    await event.reply(msg)           
+    with BytesIO(str.encode(msg)) as output:
+          output.name = "Users.txt"
+#           update.effective_message.reply_document(document=output,filename="errors.txt",caption="Here is the list of reasons lead to failure of broadcast.")
+    await event.reply(output)           
             
             
  
