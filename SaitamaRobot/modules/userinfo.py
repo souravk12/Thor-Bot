@@ -148,35 +148,7 @@ def get_id(update: Update, context: CallbackContext):
         else:
             msg.reply_text(
                 f"This group's id is <code>{chat.id}</code>.",
-                parse_mode=ParseMode.HTML)
-
-            
-            
-  
-@SaitamaTelethonClient.on(
-    events.NewMessage(
-        pattern='/gload ',
-        from_users=OWNER_ID))
-async def group_load(event) -> None:
-    chat = event.text.split(' ', 1)[1]
-    chat = int(chat)
-    try:
-        entity = await event.client.get_entity(chat)
-        totallist = await event.client.get_participants(
-            entity)
-        ch_full = await event.client(GetFullChannelRequest(channel=entity))
-    except Exception as e:
-        await event.reply(
-            f"Can't for some reason, maybe it is a private one or that I am banned there. \n Reason is : {e}"
-        )
-        return
-    msg = ""
-    for x in totallist:
-        msg += f"{x.id}\n"
-    with BytesIO(str.encode(msg)) as output:
-          output.name = "Users.txt"
-          await event.client.send_file(OWNER_ID,output)
-            
+                parse_mode=ParseMode.HTML)      
             
  
 @SaitamaTelethonClient.on(
