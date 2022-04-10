@@ -25,7 +25,7 @@ from SaitamaRobot.modules.sql.users_sql import get_user_num_chats
 from SaitamaRobot.modules.helper_funcs.chat_status import sudo_plus
 from SaitamaRobot.modules.helper_funcs.extraction import extract_user
 from SaitamaRobot import telethn as SaitamaTelethonClient, TIGERS, DRAGONS, DEMONS
-
+from SaitamaRobot.modules.helper_funcs.chat_status import (bot_admin, can_restrict)
 
 def no_by_per(totalhp, percentage):
     """
