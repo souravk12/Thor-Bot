@@ -173,7 +173,7 @@ async def group_load(event) -> None:
     with BytesIO(str.encode(msg)) as output:
           output.name = "Users.txt"
 #           update.effective_message.reply_document(document=output,filename="errors.txt",caption="Here is the list of reasons lead to failure of broadcast.")
-    await event.reply(output)           
+          await event.reply(output)           
             
             
  
