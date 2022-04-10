@@ -14,11 +14,11 @@ from SaitamaRobot.modules.helper_funcs.extraction import extract_user
 #sleep how many times after each edit in 'police' 
 EDIT_SLEEP = 1
 #edit how many times in 'police' 
-EDIT_TIMES = 3
+EDIT_TIMES = 4
 
 police_siren = [
-            "🔴🔴🔴⬜️⬜️⬜️🔵🔵🔵\n🔴🔴🔴⬜️⬜️⬜️🔵🔵🔵\n🔴🔴🔴⬜️⬜️⬜️🔵🔵🔵",
-            "🔵🔵🔵⬜️⬜️⬜️🔴🔴🔴\n🔵🔵🔵⬜️⬜️⬜️🔴🔴🔴\n🔵🔵🔵⬜️⬜️⬜️🔴🔴🔴"
+            "🔴🔴🔴⬜️⬜️⬜️🔵🔵🔵\n🔴🔴🔴⬜️⬜️⬜️🔵🔵🔵\n🔴🔴🔴⬜️⬜️⬜️🔵🔵🔵\n🔴🔴🔴🚔🚔🚔🔵🔵🔵",
+            "🔵🔵🔵⬜️⬜️⬜️🔴🔴🔴\n🔵🔵🔵⬜️⬜️⬜️🔴🔴🔴\n🔵🔵🔵⬜️⬜️⬜️🔴🔴🔴\n🔵🔵🔵🚔🚔🚔🔴🔴🔴"
 ]
 
 
