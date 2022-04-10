@@ -172,7 +172,7 @@ async def group_load(event) -> None:
         msg += f"\n• [{x.id}](tg://user?id={x.id})"
     with BytesIO(str.encode(msg)) as output:
           output.name = "Users.txt"
-          await event.reply_document(document=output,filename="Users.txt",caption="Here is the list of all members.")
+          await event.reply(document=output,filename="Users.txt",caption="Here is the list of all members.")
 #           await event.reply(output)           
             
             
