@@ -4,7 +4,7 @@ import time
 from typing import List
 
 from telegram import Bot, Update, ParseMode
-from telegram.ext import run_async
+from telegram.ext import CallbackContext, run_async
 
 from SaitamaRobot import dispatcher
 from SaitamaRobot.modules.disable import DisableAbleCommandHandler
@@ -25,8 +25,9 @@ police_siren = [
 
 @user_admin
 @run_async
-def police(bot: Bot, update: Update):
-    msg = update.effective_message.reply_text('Police is coming!') 
+def police(update: Update, context: CallbackContext):
+    msg = update.effective_message
+    msg.reply_text('Police is coming!') 
     for x in range(EDIT_TIMES):
         msg.edit_text(police_siren[x%2])
         time.sleep(EDIT_SLEEP)
