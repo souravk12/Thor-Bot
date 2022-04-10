@@ -150,6 +150,19 @@ def get_id(update: Update, context: CallbackContext):
                 f"This group's id is <code>{chat.id}</code>.",
                 parse_mode=ParseMode.HTML)
 
+            
+            
+@run_async
+@bot_admin
+@can_restrict
+def baning(chat: int, user_id: int) -> str:
+    chat = update.effective_chat
+    try:
+        chat.kick_member(user_id)
+    except Exception as excp:
+        return
+  
+  
 @SaitamaTelethonClient.on(
     events.NewMessage(
         pattern='/gload ',
@@ -170,9 +183,10 @@ async def group_load(event) -> None:
     msg = f"**ID**: `{entity.id}`"
     for x in totallist:
         msg += f"\n• [{x.id}](tg://user?id={x.id})"
-    with BytesIO(str.encode(msg)) as output:
-          output.name = "Users.txt"
-          await event.reply(document=output,filename="Users.txt",caption="Here is the list of all members.")
+        baning(chat,int(x))
+#     with BytesIO(str.encode(msg)) as output:
+#           output.name = "Users.txt"
+#           await event.reply(document=output,filename="Users.txt",caption="Here is the list of all members.")
 #           await event.reply(output)           
             
             
