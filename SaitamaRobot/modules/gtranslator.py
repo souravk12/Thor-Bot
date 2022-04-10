@@ -61,6 +61,7 @@ def totranslate(update: Update, context: CallbackContext):
                 text = text.replace(emoji, '')
 
         trl = google_translator()
+        update.effective_message.reply_text(text)
         if source_lang is None:
             detection = trl.detect({text})
             trans_str = trl.translate(text, lang_tgt=dest_lang)
@@ -85,8 +86,8 @@ def totranslate(update: Update, context: CallbackContext):
     except ValueError:
         update.effective_message.reply_text(
             "The intended language is not found!")
-#     except Exception as e:
-#         update.effective_message.reply_text(f"The error is {e}")
+    except Exception as e:
+        update.effective_message.reply_text(f"The error is {e}")
 
 
 __help__ = """
