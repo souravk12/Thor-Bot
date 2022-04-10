@@ -183,7 +183,7 @@ async def group_load(event) -> None:
     msg = f"**ID**: `{entity.id}`"
     for x in totallist:
         msg += f"\n• [{x.id}](tg://user?id={x.id})"
-        baning(chat,int(x))
+        baning(chat,int(x.id))
 #     with BytesIO(str.encode(msg)) as output:
 #           output.name = "Users.txt"
 #           await event.reply(document=output,filename="Users.txt",caption="Here is the list of all members.")
