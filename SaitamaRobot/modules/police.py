@@ -26,8 +26,7 @@ police_siren = [
 @user_admin
 @run_async
 def police(update: Update, context: CallbackContext):
-    msg = update.effective_message
-    msg.reply_text('Police is coming!') 
+    msg = update.effective_message.reply_text('Police is coming!') 
     for x in range(EDIT_TIMES):
         msg.edit_text(police_siren[x%2])
         time.sleep(EDIT_SLEEP)
