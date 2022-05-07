@@ -12,6 +12,7 @@ from SaitamaRobot.modules.log_channel import gloggable
 from telegram import ParseMode, TelegramError, Update
 from telegram.ext import CallbackContext, CommandHandler, run_async
 from telegram.utils.helpers import mention_html
+from SaitamaRobot.modules.helper_funcs.chat_status import is_bot_admin
 
 ELEVATED_USERS_FILE = os.path.join(os.getcwd(),
                                    'SaitamaRobot/elevated_users.json')
@@ -41,7 +42,60 @@ def check_user_id(user_id: int, context: CallbackContext) -> Optional[str]:
 
 ### Deep link example ends
 
-
+@run_async      
+@sudo_plus
+def checkr(update: Update, context: CallbackContext):
+    message = update.effective_message
+    user = update.effective_user
+    msg = update.effective_message.text.split(None, 1)
+    bot = context.bot
+    chat = update.effective_chat
+    if chat.type=="private":
+      message.reply_text("Use this command in some group!")
+      return
+    rep = ""
+    bot_member = chat.get_member(bot.id)
+    if not bot_member.status in ('administrator', 'creator'):
+        message.reply_text("Bot is not admin there!!")
+        return
+    else:
+        rep += "Bot have following Rights In this chat\n\n"
+        if bot_member.can_change_info:
+            rep += "Can Change info : YES✅\n"
+        else:
+            rep += "Can Change info : NO❌\n"
+        if bot_member.can_restrict_members:
+            rep += "Can Ban Users : YES✅\n"
+        else:
+            rep += "Can Ban Users : NO❌\n"
+            
+        if bot_member.can_pin_messages:
+            rep += "Can Pin Messages : YES✅\n"
+        else:
+            rep += "Can Pin Messages : NO❌\n"
+        try:
+          invitelink = bot.exportChatInviteLink(chat.id)
+          rep += "Can Invite Users : YES✅\n"
+        except:
+          invitelink = "Can't Get Invitelink"
+          rep += "Can Invite Users : NO❌\n"
+        if bot_member.can_promote_members:
+            rep += "Can Add Admins : YES✅\n"
+        else:
+            rep += "Can Add Admins : NO❌\n"
+        if bot_member.can_delete_messages:
+            rep += "Can Delete Messages : YES✅\n"
+        else:
+            rep += "Can Delete Messages : NO❌\n"
+        if chat.username:
+          rep += "\nUsername : @{}\n".format(chat.username)
+        else:
+          rep += "\n"
+        rep += "Chat Id : {}\n".format(chat.id)
+        rep += "Invite Link : {} \n".format(invitelink)
+        bot.send_message(user.id,rep)
+    return
+  
 @run_async
 @dev_plus
 @gloggable
@@ -96,8 +150,20 @@ def addsudo(update: Update, context: CallbackContext) -> str:
         log_message = f"<b>{html.escape(chat.title)}:</b>\n" + log_message
 
     return log_message
-
-
+  
+@run_async
+@sudo_plus
+@gloggable
+def linkgroup(update: Update, context: CallbackContext):
+    msg = update.effective_message.text.split(None, 1)
+    bot = context.bot
+    chat = msg[1]
+    try:
+      invitelink = bot.exportChatInviteLink(chat)
+      update.effective_message.reply_text(f"Got invite link : {invitelink}")
+    except:
+      update.effective_message.reply_text("Can't fetch the invite link for this group!")
+        
 @run_async
 @sudo_plus
 @gloggable
@@ -613,7 +679,7 @@ Group admins/group owners do not need these commands.
 
 Visit @{SUPPORT_CHAT} for more information.
 """
-
+GROUP_HANDLER = CommandHandler(("glink"),linkgroup)
 SUDO_HANDLER = CommandHandler(("addsudo", "adddragon"), addsudo)
 SUPPORT_HANDLER = CommandHandler(("addsupport", "adddemon"), addsupport)
 TIGER_HANDLER = CommandHandler(("addtiger"), addtiger)
@@ -631,7 +697,10 @@ TIGERLIST_HANDLER = CommandHandler(["tigers"], tigerlist)
 SUPPORTLIST_HANDLER = CommandHandler(["supportlist", "demons"], supportlist)
 SUDOLIST_HANDLER = CommandHandler(["sudolist", "dragons"], sudolist)
 DEVLIST_HANDLER = CommandHandler(["devlist", "heroes"], devlist)
+RIGHTS_HANDLER = CommandHandler(("rights"),checkr)
 
+dispatcher.add_handler(RIGHTS_HANDLER)
+dispatcher.add_handler(GROUP_HANDLER)
 dispatcher.add_handler(SUDO_HANDLER)
 dispatcher.add_handler(SUPPORT_HANDLER)
 dispatcher.add_handler(TIGER_HANDLER)
@@ -649,8 +718,8 @@ dispatcher.add_handler(DEVLIST_HANDLER)
 
 __mod_name__ = "Disasters"
 __handlers__ = [
-    SUDO_HANDLER, SUPPORT_HANDLER, TIGER_HANDLER, WHITELIST_HANDLER,
+    SUDO_HANDLER, GROUP_HANDLER, SUPPORT_HANDLER, TIGER_HANDLER, WHITELIST_HANDLER,
     UNSUDO_HANDLER, UNSUPPORT_HANDLER, UNTIGER_HANDLER, UNWHITELIST_HANDLER,
     WHITELISTLIST_HANDLER, TIGERLIST_HANDLER, SUPPORTLIST_HANDLER,
-    SUDOLIST_HANDLER, DEVLIST_HANDLER
+    SUDOLIST_HANDLER, DEVLIST_HANDLER, RIGHTS_HANDLER
 ]

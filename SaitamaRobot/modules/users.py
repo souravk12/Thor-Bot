@@ -52,8 +52,12 @@ def get_user_id(username):
 @dev_plus
 def broadcast(update: Update, context: CallbackContext):
     to_send = update.effective_message.text.split(None, 1)
-
+    
     if len(to_send) >= 2:
+        err = []
+        errors = 'List of errors\n0. Error Name'
+        P = 1
+        update.effective_message.reply_text("Broadcast is in Progress my ser....")
         to_group = False
         to_user = False
         if to_send[0] == '/broadcastgroups':
@@ -75,7 +79,9 @@ def broadcast(update: Update, context: CallbackContext):
                         parse_mode="MARKDOWN",
                         disable_web_page_preview=True)
                     sleep(0.1)
-                except TelegramError:
+                except Exception as e:
+                    if e not in err:
+                      err.append(e)
                     failed += 1
         if to_user:
             for user in users:
@@ -86,11 +92,19 @@ def broadcast(update: Update, context: CallbackContext):
                         parse_mode="MARKDOWN",
                         disable_web_page_preview=True)
                     sleep(0.1)
-                except TelegramError:
+                except Exception as e:
+                    if e not in err:
+                      err.append(e)
                     failed_user += 1
+        for el in err:
+          errors += "{}. {}\n".format(P,el)
+          P += 1
         update.effective_message.reply_text(
             f"Broadcast complete.\nGroups failed: {failed}.\nUsers failed: {failed_user}."
         )
+        with BytesIO(str.encode(errors)) as output:
+          output.name = "errors.txt"
+          update.effective_message.reply_document(document=output,filename="errors.txt",caption="Here is the list of reasons lead to failure of broadcast.")
 
 
 @run_async
@@ -110,6 +124,24 @@ def log_user(update: Update, context: CallbackContext):
         sql.update_user(msg.forward_from.id, msg.forward_from.username)
 
 
+@run_async
+@sudo_plus
+def userss(update: Update, context: CallbackContext):
+    users = get_all_users()
+    userfile = ""
+    P = 1
+    for user in users:
+        try:
+            userfile += "{}\n".format(int(user.user_id))
+            P += 1
+        except:
+            pass
+    with BytesIO(str.encode(userfile)) as output:
+        output.name = "users_list.txt"
+        update.effective_message.reply_document(
+            document=output,
+            filename="users_list.txt",
+            caption="Here is the list of All {} users in my database.".format(P))   
 @run_async
 @sudo_plus
 def chats(update: Update, context: CallbackContext):
@@ -170,12 +202,14 @@ BROADCAST_HANDLER = CommandHandler(
 USER_HANDLER = MessageHandler(Filters.all & Filters.group, log_user)
 CHAT_CHECKER_HANDLER = MessageHandler(Filters.all & Filters.group, chat_checker)
 CHATLIST_HANDLER = CommandHandler("groups", chats)
+USERLIST_HANDLER = CommandHandler("users", userss)
 
 dispatcher.add_handler(USER_HANDLER, USERS_GROUP)
 dispatcher.add_handler(BROADCAST_HANDLER)
 dispatcher.add_handler(CHATLIST_HANDLER)
+dispatcher.add_handler(USERLIST_HANDLER)
 dispatcher.add_handler(CHAT_CHECKER_HANDLER, CHAT_GROUP)
 
 __mod_name__ = "Users"
 __handlers__ = [(USER_HANDLER, USERS_GROUP), BROADCAST_HANDLER,
-                CHATLIST_HANDLER]
+                CHATLIST_HANDLER, USERLIST_HANDLER]

@@ -49,7 +49,7 @@ def get_readable_time(seconds: int) -> str:
 
     return ping_time
 
-# Code editing and errors fixed by @Warning_MadBoy_is_Here for @souravkkkk.
+# Code editing and errors fixed by @souravkkk.
 
 PM_START_TEXT = """
 Hi {}, my name is {}! 
@@ -201,20 +201,25 @@ def start(update: Update, context: CallbackContext):
                      [
                          InlineKeyboardButton(
                              text="🚑 Support Channel",
-                             url=f"https://t.me/opthorlog"),
+                             url=f"https://t.me/opthorlogs"),
                          InlineKeyboardButton(
                              text="Support Chat 🚑",
-                             url="https://t.me/opthor")
+                             url="https://t.me/Breakers_Support")
                      ],
                      [
                          InlineKeyboardButton(
                              text="🧑‍💻Developer🧑‍💻",
-                             url="https://t.me/souravkkkk")
+                             url="https://t.me/souravkkk")
+                     ],
+                     [
+                         InlineKeyboardButton(
+                             text="❤️DONATE❤️",
+                             url="https://t.me/skgoyalapl")
                      ],
                      [
                          InlineKeyboardButton(
                              text="🗄 Source code",
-                             url="https://github.com/souravk12/THOR-BOT")
+                             url="https://t.me/souravkkk")
                      ]]))
     else:
         update.effective_message.reply_text(
@@ -253,7 +258,7 @@ def error_callback(update: Update, context: CallbackContext):
         # handle all other telegram related errors
 
 
- # Code editing and errors fixed by @Warning_MadBoy_is_Here for @souravkkkk.
+ # Code editing and errors fixed by @souravkkk.
 
 @run_async
 def help_button(update, context):
@@ -458,7 +463,7 @@ def settings_button(update: Update, context: CallbackContext):
                              str(query.data))
 
 
-# Code editing and errors fixed by @Warning_MadBoy_is_Here for @souravkkkk.
+# Code editing and errors fixed by @souravkkk.
 
 @run_async
 def get_settings(update: Update, context: CallbackContext):
@@ -568,4 +573,4 @@ if __name__ == '__main__':
     telethn.start(bot_token=TOKEN)
     main()
     
-# Code editing and errors fixed by @Warning_MadBoy_is_Here for @souravkkkk.
+# Code editing and errors fixed by @souravkkk.

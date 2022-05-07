@@ -2,7 +2,7 @@ from emoji import UNICODE_EMOJI
 from google_trans_new import LANGUAGES, google_translator
 from telegram import ParseMode, Update
 from telegram.ext import CallbackContext, run_async
-
+from googletrans import Translator
 from SaitamaRobot import dispatcher
 from SaitamaRobot.modules.disable import DisableAbleCommandHandler
 
@@ -60,18 +60,23 @@ def totranslate(update: Update, context: CallbackContext):
             if emoji in text:
                 text = text.replace(emoji, '')
 
-        trl = google_translator()
+#         trl = google_translator()
+        trl = Translator()
         if source_lang is None:
-            detection = trl.detect(text)
-            trans_str = trl.translate(text, lang_tgt=dest_lang)
-            return message.reply_text(
-                f"Translated from `{detection[0]}` to `{dest_lang}`:\n`{trans_str}`",
-                parse_mode=ParseMode.MARKDOWN)
+#             detection = trl.detect({text})
+#             trans_str = trl.translate(text, lang_tgt=dest_lang)
+            trans_str = trl.translate(text, dest=dest_lang)
+            return message.reply_text(f"Translated from `{trans_str.src}` to `{trans_str.dest}`:\n`{trans_str.text}`",parse_mode=ParseMode.MARKDOWN)
+#               return message.reply_text(
+#                 f"Translated from `{detection[0]}` to `{dest_lang}`:\n`{trans_str}`",
+#                 parse_mode=ParseMode.MARKDOWN)
         else:
+#             trans_str = trl.translate(
+#                 text, lang_tgt=dest_lang, lang_src=source_lang)
             trans_str = trl.translate(
-                text, lang_tgt=dest_lang, lang_src=source_lang)
+                text, dest=dest_lang, src=source_lang)
             message.reply_text(
-                f"Translated from `{source_lang}` to `{dest_lang}`:\n`{trans_str}`",
+                f"Translated from `{source_lang}` to `{dest_lang}`:\n`{trans_str.text}`",
                 parse_mode=ParseMode.MARKDOWN)
 
     except IndexError:
@@ -85,7 +90,7 @@ def totranslate(update: Update, context: CallbackContext):
     except ValueError:
         update.effective_message.reply_text(
             "The intended language is not found!")
-    else:
+    except Exception as e:
         return
 
 

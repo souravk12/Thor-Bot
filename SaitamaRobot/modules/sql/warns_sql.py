@@ -1,7 +1,7 @@
 import threading
 
 from SaitamaRobot.modules.sql import BASE, SESSION
-from sqlalchemy import (Boolean, Column, Integer, String, UnicodeText, distinct,
+from sqlalchemy import (Boolean, Column, Integer, BigInteger, String, UnicodeText, distinct,
                         func)
 from sqlalchemy.dialects import postgresql
 
@@ -9,7 +9,7 @@ from sqlalchemy.dialects import postgresql
 class Warns(BASE):
     __tablename__ = "warns"
 
-    user_id = Column(Integer, primary_key=True)
+    user_id = Column(BigInteger, primary_key=True)
     chat_id = Column(String(14), primary_key=True)
     num_warns = Column(Integer, default=0)
     reasons = Column(postgresql.ARRAY(UnicodeText))
@@ -73,6 +73,7 @@ WARN_FILTERS = {}
 
 
 def warn_user(user_id, chat_id, reason=None):
+    user_id = str(user_id)
     with WARN_INSERTION_LOCK:
         warned_user = SESSION.query(Warns).get((user_id, str(chat_id)))
         if not warned_user:
@@ -94,6 +95,7 @@ def warn_user(user_id, chat_id, reason=None):
 
 
 def remove_warn(user_id, chat_id):
+    user_id = str(user_id)
     with WARN_INSERTION_LOCK:
         removed = False
         warned_user = SESSION.query(Warns).get((user_id, str(chat_id)))
@@ -110,6 +112,7 @@ def remove_warn(user_id, chat_id):
 
 
 def reset_warns(user_id, chat_id):
+    user_id = str(user_id)
     with WARN_INSERTION_LOCK:
         warned_user = SESSION.query(Warns).get((user_id, str(chat_id)))
         if warned_user:
@@ -122,6 +125,7 @@ def reset_warns(user_id, chat_id):
 
 
 def get_warns(user_id, chat_id):
+    user_id = str(user_id)
     try:
         user = SESSION.query(Warns).get((user_id, str(chat_id)))
         if not user:

@@ -4,6 +4,7 @@ from SaitamaRobot import dispatcher
 from SaitamaRobot.modules.disable import (DisableAbleCommandHandler,
                                           DisableAbleMessageHandler)
 from SaitamaRobot.modules.sql import afk_sql as sql
+import SaitamaRobot.modules.sql.blacklistusers_sql as sql2
 from SaitamaRobot.modules.users import get_user_id
 from telegram import MessageEntity, Update
 from telegram.error import BadRequest
@@ -11,13 +12,17 @@ from telegram.ext import CallbackContext, Filters, MessageHandler, run_async
 
 AFK_GROUP = 7
 AFK_REPLY_GROUP = 8
-
-
+     
 @run_async
 def afk(update: Update, context: CallbackContext):
     args = update.effective_message.text.split(None, 1)
     user = update.effective_user
-
+    if user.id in sql2.BLACKLIST_USERS:
+        try:
+          update.effective_message.reply_text("You are blacklisted my child! so go sleep nigga.")
+          return
+        except BadRequest:
+          return
     if not user:  # ignore channels
         return
 
@@ -46,7 +51,8 @@ def afk(update: Update, context: CallbackContext):
 def no_longer_afk(update: Update, context: CallbackContext):
     user = update.effective_user
     message = update.effective_message
-
+    if user.id in sql2.BLACKLIST_USERS:
+        return
     if not user:  # ignore channels
         return
 
@@ -73,6 +79,8 @@ def reply_afk(update: Update, context: CallbackContext):
     message = update.effective_message
     userc = update.effective_user
     userc_id = userc.id
+    if userc_id in sql2.BLACKLIST_USERS:
+        return
     if message.entities and message.parse_entities(
         [MessageEntity.TEXT_MENTION, MessageEntity.MENTION]):
         entities = message.parse_entities(

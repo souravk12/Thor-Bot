@@ -3,7 +3,7 @@ import re
 import os
 import requests
 import subprocess
-
+from io import BytesIO
 from telethon.tl.functions.channels import GetFullChannelRequest
 from telethon.tl.types import ChannelParticipantsAdmins
 from telethon import events
@@ -25,7 +25,7 @@ from SaitamaRobot.modules.sql.users_sql import get_user_num_chats
 from SaitamaRobot.modules.helper_funcs.chat_status import sudo_plus
 from SaitamaRobot.modules.helper_funcs.extraction import extract_user
 from SaitamaRobot import telethn as SaitamaTelethonClient, TIGERS, DRAGONS, DEMONS
-
+from SaitamaRobot.modules.helper_funcs.chat_status import (bot_admin, can_restrict)
 
 def no_by_per(totalhp, percentage):
     """
@@ -148,23 +148,24 @@ def get_id(update: Update, context: CallbackContext):
         else:
             msg.reply_text(
                 f"This group's id is <code>{chat.id}</code>.",
-                parse_mode=ParseMode.HTML)
-
-
+                parse_mode=ParseMode.HTML)      
+            
+ 
 @SaitamaTelethonClient.on(
     events.NewMessage(
         pattern='/ginfo ',
         from_users=(TIGERS or []) + (DRAGONS or []) + (DEMONS or [])))
 async def group_info(event) -> None:
     chat = event.text.split(' ', 1)[1]
+    chat = int(chat)
     try:
         entity = await event.client.get_entity(chat)
         totallist = await event.client.get_participants(
             entity, filter=ChannelParticipantsAdmins)
         ch_full = await event.client(GetFullChannelRequest(channel=entity))
-    except:
+    except Exception as e:
         await event.reply(
-            "Can't for some reason, maybe it is a private one or that I am banned there."
+            f"Can't for some reason, maybe it is a private one or that I am banned there. \n Reason is : {e}"
         )
         return
     msg = f"**ID**: `{entity.id}`"

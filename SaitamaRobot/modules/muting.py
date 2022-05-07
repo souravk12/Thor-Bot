@@ -45,6 +45,7 @@ def check_user(user_id: int, bot: Bot, chat: Chat) -> Optional[str]:
 @run_async
 @connection_status
 @bot_admin
+@can_restrict
 @user_admin
 @loggable
 def mute(update: Update, context: CallbackContext) -> str:

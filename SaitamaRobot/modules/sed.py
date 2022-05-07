@@ -134,3 +134,6 @@ SED_HANDLER = DisableAbleMessageHandler(
     friendly="sed")
 
 dispatcher.add_handler(SED_HANDLER)
+
+__command_list__ = ["s"]
+__handlers__ = [SED_HANDLER]
